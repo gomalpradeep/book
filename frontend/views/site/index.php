@@ -10,7 +10,7 @@ $this->title = 'BOOKS';
 <div class="site-index">
 
     <div class="body-content">
-	<h1>Book Store <span class="pull-right"><a class="btn btn-default" href="<?= Yii::$app->getUrlManager()->createUrl('book/create');?>">Add Book</a></span> </h1>
+	<h1>Book Store <?php if(!Yii::$app->user->isGuest){?><span class="pull-right"><a class="btn btn-default" href="<?= Yii::$app->getUrlManager()->createUrl('books/create');?>">Add Book</a></span><?php }?> </h1>
     <div class="row">
 	 <div class="col-lg-6">
 	 <?php $form = ActiveForm::begin(['enableClientValidation' => true,'action'=>'search','method'=>'get',
@@ -34,9 +34,17 @@ $this->title = 'BOOKS';
 	<hr>
     <div class="row">
 		<?php  foreach($books as $book){?>
-		<div class="col-sm-3 col-md-3">
+		<div id="bookview" class="col-sm-3 col-md-3">
 			<div class="thumbnail">
-			  <img src="<?= Yii::$app->getUrlManager()->createUrl('images/242.svg');?>" alt="...">
+				<?PHP 
+					if(!empty($book->files)){
+						$file=	$book->files;
+					}else{
+						$file='242.svg';
+					}
+					
+				?>
+			  <img src="<?= Yii::$app->getUrlManager()->createUrl('images/'.$file);?>" alt="...">
 			  <div class="caption">
 				<h4><a href="<?= Yii::$app->getUrlManager()->createUrl('books/view?id='.$book->id);?>"><?= $book->title?></a></h4>
 				<p><?= $book->description?></p>

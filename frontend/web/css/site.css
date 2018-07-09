@@ -118,3 +118,4 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+ #bookview > .thumbnail{    min-height: 370px;} #bookview > .thumbnail >img{    min-height: 200px;}

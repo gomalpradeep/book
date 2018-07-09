@@ -10,13 +10,16 @@ use yii\widgets\ActiveForm;
 
 <div class="books-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin( [  'options' => [
+		
+		'enctype' => 'multipart/form-data'
+	]]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'file')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'uploadFile')->fileInput(); ?>
 	
     <?= $form->field($model, 'video_link')->textInput(['maxlength' => true]) ?>
 

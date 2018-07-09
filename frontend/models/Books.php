@@ -19,6 +19,7 @@ use Yii;
  */
 class Books extends \yii\db\ActiveRecord
 {
+	public $uploadFile;
     /**
      * {@inheritdoc}
      */
@@ -35,12 +36,22 @@ class Books extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['status'], 'string'],
+			[['files'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
             [['created_at', 'modified_at','video_link'], 'safe'],
             [['title'], 'string', 'max' => 50],
-            [['description', 'file'], 'string', 'max' => 500],
+            [['description'], 'string', 'max' => 500],
         ];
     }
 
+	public function upload()
+    {
+        if ($this->validate()) {
+            $this->files->saveAs('images/' . $this->files->baseName . '.' . $this->files->extension);
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * {@inheritdoc}
      */
